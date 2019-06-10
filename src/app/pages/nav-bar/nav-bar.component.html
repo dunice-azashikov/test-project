@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <nav>
+        <ul>
+          <li>
+            <a
+              routerLink=""
+              [ngClass]="activeUrl === '/' ? 'active' : null"
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/portal"
+              [ngClass]="activeUrl === '/portal' ? 'active' : null"
+            >
+              Tables
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="directives"
+              [ngClass]="activeUrl === '/portal/directives' ? 'active' : null"
+            >
+              Directives
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </mat-toolbar-row>
+  </mat-toolbar>
+<router-outlet></router-outlet>

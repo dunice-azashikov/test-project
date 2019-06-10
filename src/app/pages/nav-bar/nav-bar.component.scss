@@ -1,0 +1,30 @@
+.mat-toolbar-row {
+    padding: 0;
+    width: 100%;
+    nav {
+        ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            li {
+                display: inline-block;
+                a {
+                    &:focus,
+                    &:visited {
+                        color: white;
+                    }
+                    &:active {
+                        color: red;
+                    }
+                    &.active {
+                        color: red;
+                    }
+                    color: white;
+                    text-decoration: none;
+                    padding: 0 20px;
+                }
+            }
+        }
+    }
+}
