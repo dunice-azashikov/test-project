@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material';
 import { TableDataService } from 'src/app/services/tables-service/table-data.service';
+import { TableData } from 'src/app/interfaces/table-data';
 
 @Component({
   selector: 'app-tables',
@@ -11,39 +12,6 @@ import { TableDataService } from 'src/app/services/tables-service/table-data.ser
 export class TablesComponent implements OnInit {
   public tableData;
   public displayedColumns = [];
-  //   {
-  //     title: "ID",
-  //     field: "id",
-  //   },
-  //   {
-  //     title: "Type",
-  //     field: "type",
-  //   },
-  //   {
-  //     title: "Content",
-  //     field: "attributes",
-  //     subfield: "content",
-  //   },
-  //   {
-  //     title: "Link",
-  //     field: "links",
-  //     subfield: "self",
-  //   },
-  //   {
-  //     title: "Relationship Author",
-  //     field: "relationships",
-  //     subfield: "authors",
-  //     subfield2: "links",
-  //     subfield3: "self",
-  //   },
-  //   {
-  //     title: "Relationship Publishers",
-  //     field: "relationships",
-  //     subfield: "publishers",
-  //     subfield2: "links",
-  //     subfield3: "self",
-  //   }
-  // ];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
@@ -58,8 +26,16 @@ export class TablesComponent implements OnInit {
         }: {
           data: Array<Object>
         }) => {
-          this.displayedColumns = Object.keys(data[0]);
-          this.tableData = new MatTableDataSource(data);
+          const mappedData = data.map((ele: TableData) => ({
+            id: ele.id,
+            type: ele.type,
+            content: ele.attributes.content,
+            link: ele.links.self,
+            "relationship author link": ele.relationships.authors.links.self,
+            "relationship publisher link": ele.relationships.publishers.links.self,
+          }))
+          this.displayedColumns = Object.keys(mappedData[0]);
+          this.tableData = new MatTableDataSource(mappedData);
           this.tableData.sort = this.sort;
         },
         err => console.log(err)
